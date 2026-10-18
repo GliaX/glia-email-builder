@@ -67,7 +67,7 @@ required.
 
 ```bash
 cd frappe-bench
-bench get-app https://github.com/GliaX/glia-email-builder --branch v1.0.3
+bench get-app https://github.com/GliaX/glia-email-builder --branch v1.0.4
 
 bench --site your.site install-app glia_email_builder
 bench --site your.site migrate

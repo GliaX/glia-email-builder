@@ -153,6 +153,7 @@
 			wrapper.appendChild(this.root);
 			this.position();
 			window.addEventListener("resize", () => this.position());
+			this.observeSidebar();
 			document.addEventListener("keydown", (event) => this.onKeyDown(event));
 			window.addEventListener("beforeunload", (event) => this.onBeforeUnload(event));
 			document.addEventListener("visibilitychange", () => {
@@ -174,8 +175,39 @@
 				const rect = navbar.getBoundingClientRect();
 				if (rect.bottom > 0 && rect.bottom < 160) top = rect.bottom;
 			}
+			// Keep the Desk app rail visible and place the builder in the
+			// remaining content area. The rail can collapse or resize, so use
+			// its measured right edge rather than a hard-coded width.
+			const sidebar = document.querySelector(".body-sidebar-container, .layout-side-section");
+			let left = 0;
+			if (sidebar) {
+				const style = window.getComputedStyle(sidebar);
+				const rect = sidebar.getBoundingClientRect();
+				if (style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.right > 0) {
+					left = Math.max(0, Math.min(rect.right, window.innerWidth));
+				}
+			}
 			this.root.style.top = Math.max(0, top) + "px";
+			this.root.style.left = left + "px";
 			this.root.style.height = Math.max(320, window.innerHeight - top) + "px";
+		},
+
+		observeSidebar() {
+			const sidebar = document.querySelector(".body-sidebar-container, .layout-side-section");
+			if (!sidebar) {
+				if (!this._sidebarRetry) {
+					this._sidebarRetry = setTimeout(() => {
+						this._sidebarRetry = null;
+						this.position();
+						this.observeSidebar();
+					}, 300);
+				}
+				return;
+			}
+			if (!window.ResizeObserver) return;
+			if (this._sidebarObserver) this._sidebarObserver.disconnect();
+			this._sidebarObserver = new ResizeObserver(() => this.position());
+			this._sidebarObserver.observe(sidebar);
 		},
 
 		templateFromUrl() {
@@ -198,6 +230,8 @@
 		},
 
 		onShow() {
+			this.position();
+			this.observeSidebar();
 			const name = this.templateFromUrl();
 			if (name && (!GEB.state.template || GEB.state.template.name !== name)) {
 				this.loadTemplate(name);

@@ -34,9 +34,10 @@
 	right: 0;
 	bottom: 0;
 	top: 48px;
-	/* Above the Desk sidebar: the builder is a full-screen surface and must
-	   not be clipped by the app rail. */
-	z-index: 1050;
+	/* The builder occupies the content area beside the Desk app rail; JS
+	   measures the rail and sets an inline left offset. Keep it below the
+	   rail so the rail stays visible and clickable. */
+	z-index: 1000;
 	display: flex;
 	flex-direction: column;
 	min-height: 0;
