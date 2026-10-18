@@ -41,13 +41,17 @@
 
 		call(method, args, options) {
 			const opts = options || {};
-			return frappe
-				.call({
+			// frappe.call() returns a jQuery-style thenable in some Desk
+			// versions. It has .then()/.catch() but no .finally(), so wrap it
+			// in a native Promise before callers chain .finally().
+			return Promise.resolve(
+				frappe.call({
 					method: METHOD_PREFIX + method,
 					args: args || {},
 					type: "POST",
 					freeze: !!opts.freeze,
 				})
+			)
 				.then((response) => response.message)
 				.catch((error) => {
 					const message = GEB.api.errorMessage(error);
