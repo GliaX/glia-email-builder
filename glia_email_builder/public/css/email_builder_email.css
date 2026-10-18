@@ -1,0 +1,57 @@
+/*
+ * Email Builder responsive rules for Frappe's standard email wrapper.
+ *
+ * The compiled design stores its body and its own <style> block in
+ * Email Template.response_html, but Frappe wraps that content in
+ * templates/emails/standard.html before sending. Premailer keeps @media rules
+ * in the document <head>; registering the builder rules through the email_css
+ * hook puts them in that head, where Gmail and other clients honour them.
+ *
+ * Only .geb-* selectors are used, so this stylesheet has no effect on other
+ * Frappe/ERPNext emails.
+ */
+
+@media only screen and (max-width: 700px) {
+	.geb-content {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	.geb-stack {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	.geb-stack + .geb-stack {
+		padding-top: 8px !important;
+	}
+
+	.geb-no-stack {
+		display: table-cell !important;
+	}
+
+	.geb-hide-mobile {
+		display: none !important;
+		max-height: 0 !important;
+		overflow: hidden !important;
+	}
+
+	.geb-reverse {
+		direction: rtl !important;
+	}
+
+	.geb-reverse > tbody > tr > td {
+		direction: ltr !important;
+	}
+
+	.geb-full-width {
+		width: 100% !important;
+	}
+}
+
+@media only screen and (min-width: 701px) {
+	.geb-hide-desktop {
+		display: none !important;
+	}
+}

@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "organization_section",
+  "organization_name",
+  "organization_address",
+  "column_break_1",
+  "logo",
+  "disclaimer",
+  "brand_section",
+  "brand_primary_color",
+  "brand_dark_color",
+  "brand_accent_color",
+  "column_break_2",
+  "default_font",
+  "default_link_color",
+  "default_button_color",
+  "default_button_text_color",
+  "links_section",
+  "donation_url",
+  "website_url",
+  "unsubscribe_text",
+  "column_break_3",
+  "social_facebook",
+  "social_instagram",
+  "social_twitter",
+  "social_linkedin",
+  "social_youtube",
+  "merge_section",
+  "default_reference_doctype",
+  "merge_fields",
+  "sample_values_json",
+  "editor_section",
+  "prompt_editor_on_new"
+ ],
+ "fields": [
+  {
+   "fieldname": "organization_section",
+   "fieldtype": "Section Break",
+   "label": "Organization"
+  },
+  {
+   "default": "Glia",
+   "fieldname": "organization_name",
+   "fieldtype": "Data",
+   "label": "Organization Name"
+  },
+  {
+   "default": "Glia · info@glia.org · glia.org",
+   "description": "Used by the {{ OrganizationAddress }} token. Separate lines with newlines.",
+   "fieldname": "organization_address",
+   "fieldtype": "Small Text",
+   "label": "Organization Address"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Optional logo for email headers. The builder falls back to the bundled Glia logo.",
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Email Logo"
+  },
+  {
+   "default": "You are receiving this email because you support Glia's medical solidarity work.",
+   "fieldname": "disclaimer",
+   "fieldtype": "Small Text",
+   "label": "Default Disclaimer"
+  },
+  {
+   "fieldname": "brand_section",
+   "fieldtype": "Section Break",
+   "label": "Brand"
+  },
+  {
+   "default": "#00A89E",
+   "fieldname": "brand_primary_color",
+   "fieldtype": "Color",
+   "label": "Primary Color"
+  },
+  {
+   "default": "#001F27",
+   "fieldname": "brand_dark_color",
+   "fieldtype": "Color",
+   "label": "Dark Color"
+  },
+  {
+   "default": "#005AB9",
+   "fieldname": "brand_accent_color",
+   "fieldtype": "Color",
+   "label": "Accent Color"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Arial",
+   "fieldname": "default_font",
+   "fieldtype": "Select",
+   "label": "Default Font",
+   "options": "\nArial\nHelvetica\nVerdana\nTahoma\nTrebuchet MS\nGeorgia\nTimes New Roman\nCourier New"
+  },
+  {
+   "default": "#005AB9",
+   "fieldname": "default_link_color",
+   "fieldtype": "Color",
+   "label": "Default Link Color"
+  },
+  {
+   "default": "#00A89E",
+   "fieldname": "default_button_color",
+   "fieldtype": "Color",
+   "label": "Default Button Color"
+  },
+  {
+   "default": "#FFFFFF",
+   "fieldname": "default_button_text_color",
+   "fieldtype": "Color",
+   "label": "Default Button Text Color"
+  },
+  {
+   "fieldname": "links_section",
+   "fieldtype": "Section Break",
+   "label": "Links"
+  },
+  {
+   "default": "https://glia.org/products/donate-glia-project",
+   "fieldname": "donation_url",
+   "fieldtype": "Data",
+   "label": "Donation URL",
+   "options": "URL"
+  },
+  {
+   "default": "https://glia.org",
+   "fieldname": "website_url",
+   "fieldtype": "Data",
+   "label": "Website URL",
+   "options": "URL"
+  },
+  {
+   "default": "Unsubscribe",
+   "fieldname": "unsubscribe_text",
+   "fieldtype": "Data",
+   "label": "Unsubscribe Link Text"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "https://www.facebook.com/glia.project",
+   "fieldname": "social_facebook",
+   "fieldtype": "Data",
+   "label": "Facebook",
+   "options": "URL"
+  },
+  {
+   "default": "https://www.instagram.com/glia_intl",
+   "fieldname": "social_instagram",
+   "fieldtype": "Data",
+   "label": "Instagram",
+   "options": "URL"
+  },
+  {
+   "default": "https://twitter.com/glia_intl",
+   "fieldname": "social_twitter",
+   "fieldtype": "Data",
+   "label": "X / Twitter",
+   "options": "URL"
+  },
+  {
+   "default": "https://www.linkedin.com/company/gliaorg",
+   "fieldname": "social_linkedin",
+   "fieldtype": "Data",
+   "label": "LinkedIn",
+   "options": "URL"
+  },
+  {
+   "default": "https://www.youtube.com/@glia_intl",
+   "fieldname": "social_youtube",
+   "fieldtype": "Data",
+   "label": "YouTube",
+   "options": "URL"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "merge_section",
+   "fieldtype": "Section Break",
+   "label": "Merge Fields"
+  },
+  {
+   "default": "Contact",
+   "description": "Doctype used for merge fields and previews. Campaigns pass the recipient document to Jinja as doc.*",
+   "fieldname": "default_reference_doctype",
+   "fieldtype": "Link",
+   "label": "Default Reference DocType",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "merge_fields",
+   "fieldtype": "Table",
+   "label": "Merge Fields",
+   "options": "Email Builder Merge Field"
+  },
+  {
+   "description": "Optional JSON object of sample doc values used by the preview.",
+   "fieldname": "sample_values_json",
+   "fieldtype": "Code",
+   "label": "Sample Preview Values",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "editor_section",
+   "fieldtype": "Section Break",
+   "label": "Editor"
+  },
+  {
+   "default": "0",
+   "description": "Ask whether to use the block builder or the classic HTML form when a new Email Template is created.",
+   "fieldname": "prompt_editor_on_new",
+   "fieldtype": "Check",
+   "label": "Prompt for editor on new Email Template"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Email Builder",
+ "name": "Email Builder Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Email Builder User"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

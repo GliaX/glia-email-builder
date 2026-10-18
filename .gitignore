@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Dev harness generated files
+dev/harness/mock-data.js
+dev/harness/builder.css
+dev/harness/assets/glia_email_builder
+
+# Local scratch
+.research/
+node_modules/
+*.log
+.DS_Store

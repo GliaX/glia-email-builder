@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "group",
+  "label",
+  "expression",
+  "column_break_1",
+  "fallback",
+  "sample_value",
+  "aliases"
+ ],
+ "fields": [
+  {
+   "fieldname": "group",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Group"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label",
+   "reqd": 1
+  },
+  {
+   "description": "Jinja expression, e.g. doc.first_name, or a {{ Token }} resolved from Email Builder Settings.",
+   "fieldname": "expression",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Expression",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Text to show when the field is empty (used with |default).",
+   "fieldname": "fallback",
+   "fieldtype": "Data",
+   "label": "Fallback"
+  },
+  {
+   "fieldname": "sample_value",
+   "fieldtype": "Data",
+   "label": "Sample Value"
+  },
+  {
+   "description": "Comma-separated EveryAction-style names, e.g. First Name, FirstName, first_name.",
+   "fieldname": "aliases",
+   "fieldtype": "Small Text",
+   "label": "Aliases"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Email Builder",
+ "name": "Email Builder Merge Field",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,180 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "field:email_template",
+ "creation": "2026-01-01 00:00:00.000000",
+ "description": "Block-based design for an ERPNext Email Template. The compiled HTML is written back to the Email Template.",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "email_template",
+  "reference_doctype",
+  "category",
+  "seeded",
+  "column_break_1",
+  "description",
+  "section_break_design",
+  "design_json",
+  "section_break_compiled",
+  "compiled_html",
+  "plain_text",
+  "column_break_2",
+  "block_count",
+  "email_size",
+  "compiled_on",
+  "builder_version",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "email_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Email Template",
+   "options": "Email Template",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "DocType used for merge fields, previews and row conditions for this design.",
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Reference DocType",
+   "options": "DocType"
+  },
+  {
+   "default": "Custom",
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Category",
+   "options": "\nNewsletter\nAppeal\nThank You\nInvitation\nAnnouncement\nLetter\nRecurring Giving\nBlank\nCustom"
+  },
+  {
+   "default": "0",
+   "fieldname": "seeded",
+   "fieldtype": "Check",
+   "label": "Seeded Starter Template",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "in_list_view": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_design",
+   "fieldtype": "Section Break",
+   "label": "Design Data (advanced)"
+  },
+  {
+   "description": "Raw block JSON. Edit with care or use the Email Builder page.",
+   "fieldname": "design_json",
+   "fieldtype": "Code",
+   "label": "Design JSON",
+   "options": "JSON"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_compiled",
+   "fieldtype": "Section Break",
+   "label": "Compiled Output"
+  },
+  {
+   "fieldname": "compiled_html",
+   "fieldtype": "Code",
+   "label": "Compiled HTML (Jinja)",
+   "options": "HTML",
+   "read_only": 1
+  },
+  {
+   "fieldname": "plain_text",
+   "fieldtype": "Text",
+   "label": "Plain Text Preview",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "block_count",
+   "fieldtype": "Int",
+   "label": "Blocks",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email_size",
+   "fieldtype": "Int",
+   "label": "HTML Size (bytes)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "compiled_on",
+   "fieldtype": "Datetime",
+   "label": "Compiled On",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "builder_version",
+   "fieldtype": "Int",
+   "label": "Builder Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Email Builder",
+ "name": "Email Builder Design",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Email Builder User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "email_template,category,description",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "email_template",
+ "track_changes": 1
+}

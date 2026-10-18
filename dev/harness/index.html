@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Glia Email Builder - dev harness</title>
+	<link rel="stylesheet" href="builder.css" />
+	<style>
+		html, body { margin: 0; height: 100%; background: #e9eeec; }
+		#app { position: fixed; inset: 0; }
+		#harness-errors {
+			position: fixed; left: 12px; bottom: 12px; z-index: 99999;
+			max-width: 60vw; max-height: 30vh; overflow: auto;
+			background: #ffefef; color: #8b1f1f; border: 1px solid #f0c9c9;
+			border-radius: 8px; padding: 8px 10px; font: 11px/1.45 monospace;
+			display: none; white-space: pre-wrap;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<pre id="harness-errors"></pre>
+
+	<script src="mock-data.js"></script>
+	<script src="mock-frappe.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/vendor/Sortable.min.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/core.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/api.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/model.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/styles.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/blocks.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/canvas.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/inspector.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/toolbar.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/dnd.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/modals.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/library.js"></script>
+	<script src="/assets/glia_email_builder/js/email_builder/app.js"></script>
+	<script>
+		(function () {
+			const errors = document.getElementById("harness-errors");
+			function showError(message) {
+				errors.style.display = "block";
+				errors.textContent += message + "\n";
+			}
+			window.addEventListener("error", (event) => {
+				showError((event.error && event.error.stack) || event.message);
+			});
+			window.addEventListener("unhandledrejection", (event) => {
+				showError("Unhandled: " + ((event.reason && (event.reason.stack || event.reason.message)) || event.reason));
+			});
+			try {
+				GEB.app.boot(document.getElementById("app"));
+			} catch (error) {
+				showError(error.stack || String(error));
+			}
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+ "content": null,
+ "creation": "2026-01-01 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "mail",
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Email Builder",
+ "name": "email-builder",
+ "owner": "Administrator",
+ "page_name": "email-builder",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Email Builder User"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Email Builder"
+}
