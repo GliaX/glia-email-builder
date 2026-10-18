@@ -80,36 +80,95 @@ def ensure_settings() -> None:
 		doc.save(ignore_permissions=True)
 
 
-def grant_email_template_access() -> None:
-	"""Let the dedicated role edit Email Templates.
+def _permission_fields() -> list[str]:
+	"""Permission flags shared by DocPerm and Custom DocPerm."""
+	standard = frappe.get_meta("DocPerm")
+	custom = frappe.get_meta("Custom DocPerm")
+	return [
+		field
+		for field in (
+			"read",
+			"write",
+			"create",
+			"delete",
+			"submit",
+			"cancel",
+			"amend",
+			"email",
+			"export",
+			"import",
+			"print",
+			"report",
+			"share",
+			"select",
+			"if_owner",
+		)
+		if standard.has_field(field) and custom.has_field(field)
+	]
 
-	The role is empty unless an administrator assigns it, and it is the only
-	way non-System-Manager communications staff can use the builder. The
-	custom permission is limited to Email Template and excludes delete.
+
+def _upsert_custom_docperm(role: str, permlevel: int, flags: dict) -> None:
+	filters = {"parent": TEMPLATE_DOCTYPE, "role": role, "permlevel": permlevel}
+	name = frappe.db.get_value("Custom DocPerm", filters, "name")
+	doc = frappe.get_doc("Custom DocPerm", name) if name else frappe.new_doc("Custom DocPerm")
+	if not name:
+		doc.parent = TEMPLATE_DOCTYPE
+		doc.role = role
+		doc.permlevel = permlevel
+	for field in _permission_fields():
+		doc.set(field, flags.get(field) or 0)
+	doc.save(ignore_permissions=True)
+
+
+def grant_email_template_access() -> None:
+	"""Grant Email Template access without stripping the standard roles.
+
+	Frappe treats Custom DocPerm rows as the complete permission set for a
+	doctype. Creating only the Email Builder User row therefore hid Email
+	Template from System Manager and Desk User. Mirror the standard DocPerm
+	rows into Custom DocPerm first, then add the dedicated builder role.
 	"""
 	if not frappe.db.exists("Role", ROLE):
 		return
 	if not frappe.db.exists("DocType", "Custom DocPerm"):
 		return
 	try:
-		filters = {"parent": TEMPLATE_DOCTYPE, "role": ROLE, "permlevel": 0}
-		name = frappe.db.get_value("Custom DocPerm", filters, "name")
-		if name:
-			doc = frappe.get_doc("Custom DocPerm", name)
-		else:
-			doc = frappe.new_doc("Custom DocPerm")
-			doc.parent = TEMPLATE_DOCTYPE
-			doc.role = ROLE
-			doc.permlevel = 0
-		doc.read = 1
-		doc.write = 1
-		doc.create = 1
-		doc.email = 1
-		doc.export = 1
-		doc.print = 1
-		doc.share = 1
-		doc.report = 1
-		doc.save(ignore_permissions=True)
+		fields = _permission_fields()
+		standard_rows = frappe.get_all(
+			"DocPerm",
+			filters={"parent": TEMPLATE_DOCTYPE},
+			fields=["role", "permlevel", *fields],
+		)
+		if not standard_rows:
+			standard_rows = [
+				{
+					"role": "System Manager",
+					"permlevel": 0,
+					"read": 1,
+					"write": 1,
+					"create": 1,
+					"delete": 1,
+				},
+				{"role": "Desk User", "permlevel": 0, "read": 1},
+			]
+		for row in standard_rows:
+			if not row.get("role"):
+				continue
+			_upsert_custom_docperm(row["role"], row.get("permlevel") or 0, row)
+		_upsert_custom_docperm(
+			ROLE,
+			0,
+			{
+				"read": 1,
+				"write": 1,
+				"create": 1,
+				"email": 1,
+				"export": 1,
+				"print": 1,
+				"share": 1,
+				"report": 1,
+			},
+		)
 		frappe.clear_cache(doctype=TEMPLATE_DOCTYPE)
 	except Exception:
 		frappe.log_error(title="Email Builder: could not grant Email Template access")
